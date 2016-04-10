@@ -19,11 +19,16 @@
  */
 package org.perfcake;
 
-import org.perfcake.scenario.Scenario;
-import org.perfcake.scenario.ScenarioLoader;
-import org.perfcake.util.TimerBenchmark;
-import org.perfcake.util.Utils;
-import org.perfcake.validation.ValidationException;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.stream.Collectors;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -35,17 +40,11 @@ import org.apache.commons.cli.ParseException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.Properties;
-import java.util.stream.Collectors;
+import org.perfcake.scenario.Scenario;
+import org.perfcake.scenario.ScenarioLoader;
+import org.perfcake.util.TimerBenchmark;
+import org.perfcake.util.Utils;
+import org.perfcake.validation.ValidationException;
 
 /**
  * Parses command line parameters, loads the scenario from XML or DSL file and executes it.
@@ -158,6 +157,7 @@ public class ScenarioExecution {
       final HelpFormatter formatter = new HelpFormatter();
       final Options options = new Options();
 
+      options.addOption(Option.builder("m").longOpt(PerfCakeConst.SLAVE_OPT).desc("master IP address and port").hasArg().argName("MASTER").build());
       options.addOption(Option.builder("s").longOpt(PerfCakeConst.SCENARIO_OPT).desc("scenario to be executed").hasArg().argName("SCENARIO").build());
       options.addOption(Option.builder("sd").longOpt(PerfCakeConst.SCENARIOS_DIR_OPT).desc("directory for scenarios").hasArg().argName("SCENARIOS_DIR").build());
       options.addOption(Option.builder("md").longOpt(PerfCakeConst.MESSAGES_DIR_OPT).desc("directory for messages").hasArg().argName("MESSAGES_DIR").build());
@@ -177,8 +177,12 @@ public class ScenarioExecution {
          return;
       }
 
+      log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!" + commandLine.getOptionValue(PerfCakeConst.SLAVE_OPT));
+      
       if (commandLine.hasOption(PerfCakeConst.SCENARIO_OPT)) {
          System.setProperty(PerfCakeConst.SCENARIO_PROPERTY, commandLine.getOptionValue(PerfCakeConst.SCENARIO_OPT));
+      } else if (commandLine.hasOption(PerfCakeConst.SLAVE_OPT)) {
+    	  System.setProperty(PerfCakeConst.MASTER_IP_PROPERTY, commandLine.getOptionValue(PerfCakeConst.SLAVE_OPT));
       } else {
          formatter.printHelp(PerfCakeConst.USAGE_HELP, options);
          System.exit(PerfCakeConst.ERR_NO_SCENARIO);
@@ -230,14 +234,36 @@ public class ScenarioExecution {
     * Loads the scenario from the XML file specified at the command line.
     */
    private void loadScenario() {
-      final String scenarioFile = Utils.getProperty(PerfCakeConst.SCENARIO_PROPERTY);
 
-      try {
-         scenario = ScenarioLoader.load(scenarioFile);
-      } catch (final Exception e) {
-         log.fatal(String.format("Cannot load scenario '%s': ", scenarioFile), e);
-         System.exit(PerfCakeConst.ERR_SCENARIO_LOADING);
-      }
+   	final String masterIp = Utils.getProperty(PerfCakeConst.MASTER_IP_PROPERTY);
+   	
+   	if (masterIp != null) {
+   		// TODO parse master IP and port
+   		// assume default port if none specified
+   		log.info("MASTER: " + masterIp);
+   		setupSlaveSocket();
+
+      	try {
+      		scenario = ScenarioLoader.loadFromMaster();
+      	} catch (final Exception e) {
+      		log.fatal(String.format("Cannot load scenario from master @ '%s': ", masterIp), e);
+      		System.exit(PerfCakeConst.ERR_SCENARIO_LOADING);
+      	}
+   		
+   	} else {
+      	final String scenarioFile = Utils.getProperty(PerfCakeConst.SCENARIO_PROPERTY);
+
+      	try {
+      		scenario = ScenarioLoader.load(scenarioFile);
+      	} catch (final Exception e) {
+      		log.fatal(String.format("Cannot load scenario '%s': ", scenarioFile), e);
+      		System.exit(PerfCakeConst.ERR_SCENARIO_LOADING);
+      	}
+   	}
+   }
+   
+   private void setupSlaveSocket() {
+   	// TODO setup slave sockets
    }
 
    /**

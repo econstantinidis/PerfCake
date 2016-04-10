@@ -65,6 +65,11 @@ public final class PerfCakeConst {
     * Name of the system property that stores name of scenario that is executed.
     */
    public static final String SCENARIO_PROPERTY = "perfcake.scenario";
+   
+   /**
+    * Name of the system property that stores the IP of the master server.
+    */
+   public static final String MASTER_IP_PROPERTY = "perfcake.scenario.master";
 
    /**
     * Name of the system property that stores name of the default String encoding.
@@ -116,6 +121,11 @@ public final class PerfCakeConst {
     */
    public static final String SCENARIO_OPT = "scenario";
 
+   /**
+    * Name of the CLI argument to specify slave mode with server IPe.
+    */
+   public static final String SLAVE_OPT = "master";
+   
    /**
     * Name of the CLI argument to specify path to scenarios.
     */
