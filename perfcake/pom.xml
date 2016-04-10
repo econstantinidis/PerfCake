@@ -554,8 +554,10 @@
                      <argument>-cp</argument>
                      <classpath />
                      <argument>org.perfcake.ScenarioExecution</argument>
-                     <argument>-s</argument>
-                     <argument>${scenario}</argument>
+                     <!-- <argument>-s</argument> -->
+                     <!-- <argument>${scenario}</argument> -->
+                     <argument>-m</argument>
+                     <argument>${master}</argument>
                      <argument>-sd</argument>
                      <argument>${basedir}/src/main/resources/scenarios</argument>
                      <argument>-md</argument>
