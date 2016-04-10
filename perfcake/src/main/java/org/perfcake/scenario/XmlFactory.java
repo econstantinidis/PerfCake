@@ -24,6 +24,7 @@ import org.perfcake.PerfCakeException;
 import org.perfcake.RunInfo;
 import org.perfcake.common.Period;
 import org.perfcake.common.PeriodType;
+import org.perfcake.distribution.DistributionManager;
 import org.perfcake.message.Message;
 import org.perfcake.message.MessageTemplate;
 import org.perfcake.message.generator.MessageGenerator;
@@ -32,6 +33,7 @@ import org.perfcake.message.sequence.Sequence;
 import org.perfcake.message.sequence.SequenceManager;
 import org.perfcake.model.Header;
 import org.perfcake.model.Property;
+import org.perfcake.model.Scenario.Distribution;
 import org.perfcake.model.Scenario.Generator;
 import org.perfcake.model.Scenario.Messages;
 import org.perfcake.model.Scenario.Messages.Message.ValidatorRef;
@@ -163,6 +165,7 @@ public class XmlFactory implements ScenarioFactory {
          scenario.setMessageSenderManager(parseSender(messageGenerator.getThreads()));
          scenario.setReportManager(parseReporting());
          scenario.getReportManager().setRunInfo(runInfo);
+         scenario.setDistributionManager(parseDistribution());
 
          final ValidationManager validationManager = parseValidation();
          final List<MessageTemplate> messageTemplates = parseMessages(validationManager);
@@ -195,12 +198,13 @@ public class XmlFactory implements ScenarioFactory {
             test.read(); // there always is a byte
             test.close(); // we do not need finally for this as we could not have failed
          } catch (IOException e) {
+        	 System.out.println("here");
             scenarioXsdUrl = backupUrl; // backup taken from the web
          }
 
          final SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
          final Schema schema = schemaFactory.newSchema(scenarioXsdUrl);
-
+         log.info(scenarioXsdUrl);
          final JAXBContext context = JAXBContext.newInstance(org.perfcake.model.Scenario.class);
          final Unmarshaller unmarshaller = context.createUnmarshaller();
          unmarshaller.setSchema(schema);
@@ -585,4 +589,12 @@ public class XmlFactory implements ScenarioFactory {
 
       return null;
    }
+   
+   protected DistributionManager parseDistribution() throws PerfCakeException {
+	   	  Distribution input = scenarioModel.getDistribution();
+	      final DistributionManager distributionManager = new DistributionManager(input.getPort(), input.getAddress());
+	      //TODO get it working
+	      return distributionManager;
+	   }
+
 }
