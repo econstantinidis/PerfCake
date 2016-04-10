@@ -52,7 +52,7 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+ *                   &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
@@ -73,7 +73,7 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+ *                   &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
  *                 &lt;/sequence>
  *                 &lt;attribute name="class" type="{http://www.w3.org/2001/XMLSchema}string" />
  *                 &lt;attribute name="threads" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -91,7 +91,7 @@ import javax.xml.bind.annotation.XmlType;
  *                       &lt;complexContent>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                           &lt;sequence>
- *                             &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+ *                             &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
  *                           &lt;/sequence>
  *                           &lt;attribute name="class" type="{http://www.w3.org/2001/XMLSchema}string" />
  *                           &lt;attribute name="name" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -110,7 +110,7 @@ import javax.xml.bind.annotation.XmlType;
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
  *                   &lt;element name="target" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *                   &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+ *                   &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
  *                 &lt;/sequence>
  *                 &lt;attribute name="class" type="{http://www.w3.org/2001/XMLSchema}string" />
  *               &lt;/restriction>
@@ -123,14 +123,14 @@ import javax.xml.bind.annotation.XmlType;
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
  *                   &lt;sequence>
- *                     &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+ *                     &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
  *                   &lt;/sequence>
  *                   &lt;element name="reporter" maxOccurs="unbounded">
  *                     &lt;complexType>
  *                       &lt;complexContent>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                           &lt;sequence>
- *                             &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+ *                             &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
  *                             &lt;element name="destination" maxOccurs="unbounded" minOccurs="0">
  *                               &lt;complexType>
  *                                 &lt;complexContent>
@@ -146,7 +146,7 @@ import javax.xml.bind.annotation.XmlType;
  *                                           &lt;/complexContent>
  *                                         &lt;/complexType>
  *                                       &lt;/element>
- *                                       &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+ *                                       &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
  *                                     &lt;/sequence>
  *                                     &lt;attribute name="class" type="{http://www.w3.org/2001/XMLSchema}string" />
  *                                     &lt;attribute name="enabled" type="{http://www.w3.org/2001/XMLSchema}boolean" default="true" />
@@ -176,8 +176,8 @@ import javax.xml.bind.annotation.XmlType;
  *                       &lt;complexContent>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                           &lt;sequence>
- *                             &lt;element ref="{urn:perfcake:scenario:6.0}header" maxOccurs="unbounded" minOccurs="0"/>
- *                             &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+ *                             &lt;element ref="{urn:perfcake:scenario:7.0}header" maxOccurs="unbounded" minOccurs="0"/>
+ *                             &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
  *                             &lt;element name="validatorRef" maxOccurs="unbounded" minOccurs="0">
  *                               &lt;complexType>
  *                                 &lt;complexContent>
@@ -210,7 +210,7 @@ import javax.xml.bind.annotation.XmlType;
  *                       &lt;complexContent>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                           &lt;sequence>
- *                             &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+ *                             &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
  *                           &lt;/sequence>
  *                           &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}string" />
  *                           &lt;attribute name="class" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -235,6 +235,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
+	"distribution",
     "properties",
     "run",
     "generator",
@@ -258,6 +259,7 @@ public class Scenario {
     protected Scenario.Reporting reporting;
     protected Scenario.Messages messages;
     protected Scenario.Validation validation;
+    protected Scenario.Distribution distribution;
 
     /**
      * Gets the value of the properties property.
@@ -295,6 +297,9 @@ public class Scenario {
         return run;
     }
 
+    public Scenario.Distribution getDistribution() {
+        return distribution;
+    }
     /**
      * Sets the value of the run property.
      * 
@@ -451,7 +456,36 @@ public class Scenario {
         this.validation = value;
     }
 
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "")
+    public static class Distribution {
 
+        @XmlAttribute(name = "port")
+        protected int port;
+        @XmlAttribute(name = "address")
+        protected String address;
+        
+        public int getPort()
+        {
+        	return port;
+        }
+        
+        public String getAddress()
+        {
+        	return address;
+        }
+        
+        public void setPort(int port)
+        {
+        	this.port = port;
+        }
+        
+        public void setAddress(String address)
+        {
+        	this.address = address;
+        }
+
+    }
     /**
      * <p>Java class for anonymous complex type.
      * 
@@ -462,7 +496,7 @@ public class Scenario {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+     *         &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
      *       &lt;/sequence>
      *       &lt;attribute name="class" type="{http://www.w3.org/2001/XMLSchema}string" />
      *       &lt;attribute name="threads" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -580,8 +614,8 @@ public class Scenario {
      *             &lt;complexContent>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *                 &lt;sequence>
-     *                   &lt;element ref="{urn:perfcake:scenario:6.0}header" maxOccurs="unbounded" minOccurs="0"/>
-     *                   &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+     *                   &lt;element ref="{urn:perfcake:scenario:7.0}header" maxOccurs="unbounded" minOccurs="0"/>
+     *                   &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
      *                   &lt;element name="validatorRef" maxOccurs="unbounded" minOccurs="0">
      *                     &lt;complexType>
      *                       &lt;complexContent>
@@ -656,8 +690,8 @@ public class Scenario {
          *   &lt;complexContent>
          *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
          *       &lt;sequence>
-         *         &lt;element ref="{urn:perfcake:scenario:6.0}header" maxOccurs="unbounded" minOccurs="0"/>
-         *         &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+         *         &lt;element ref="{urn:perfcake:scenario:7.0}header" maxOccurs="unbounded" minOccurs="0"/>
+         *         &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
          *         &lt;element name="validatorRef" maxOccurs="unbounded" minOccurs="0">
          *           &lt;complexType>
          *             &lt;complexContent>
@@ -921,7 +955,7 @@ public class Scenario {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+     *         &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -981,14 +1015,14 @@ public class Scenario {
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
      *         &lt;sequence>
-     *           &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+     *           &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
      *         &lt;/sequence>
      *         &lt;element name="reporter" maxOccurs="unbounded">
      *           &lt;complexType>
      *             &lt;complexContent>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *                 &lt;sequence>
-     *                   &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+     *                   &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
      *                   &lt;element name="destination" maxOccurs="unbounded" minOccurs="0">
      *                     &lt;complexType>
      *                       &lt;complexContent>
@@ -1004,7 +1038,7 @@ public class Scenario {
      *                                 &lt;/complexContent>
      *                               &lt;/complexType>
      *                             &lt;/element>
-     *                             &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+     *                             &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
      *                           &lt;/sequence>
      *                           &lt;attribute name="class" type="{http://www.w3.org/2001/XMLSchema}string" />
      *                           &lt;attribute name="enabled" type="{http://www.w3.org/2001/XMLSchema}boolean" default="true" />
@@ -1107,7 +1141,7 @@ public class Scenario {
          *   &lt;complexContent>
          *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
          *       &lt;sequence>
-         *         &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+         *         &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
          *         &lt;element name="destination" maxOccurs="unbounded" minOccurs="0">
          *           &lt;complexType>
          *             &lt;complexContent>
@@ -1123,7 +1157,7 @@ public class Scenario {
          *                       &lt;/complexContent>
          *                     &lt;/complexType>
          *                   &lt;/element>
-         *                   &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+         *                   &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
          *                 &lt;/sequence>
          *                 &lt;attribute name="class" type="{http://www.w3.org/2001/XMLSchema}string" />
          *                 &lt;attribute name="enabled" type="{http://www.w3.org/2001/XMLSchema}boolean" default="true" />
@@ -1286,7 +1320,7 @@ public class Scenario {
              *             &lt;/complexContent>
              *           &lt;/complexType>
              *         &lt;/element>
-             *         &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+             *         &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
              *       &lt;/sequence>
              *       &lt;attribute name="class" type="{http://www.w3.org/2001/XMLSchema}string" />
              *       &lt;attribute name="enabled" type="{http://www.w3.org/2001/XMLSchema}boolean" default="true" />
@@ -1595,7 +1629,7 @@ public class Scenario {
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
      *         &lt;element name="target" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
-     *         &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+     *         &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
      *       &lt;/sequence>
      *       &lt;attribute name="class" type="{http://www.w3.org/2001/XMLSchema}string" />
      *     &lt;/restriction>
@@ -1712,7 +1746,7 @@ public class Scenario {
      *             &lt;complexContent>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *                 &lt;sequence>
-     *                   &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+     *                   &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
      *                 &lt;/sequence>
      *                 &lt;attribute name="class" type="{http://www.w3.org/2001/XMLSchema}string" />
      *                 &lt;attribute name="name" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -1776,7 +1810,7 @@ public class Scenario {
          *   &lt;complexContent>
          *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
          *       &lt;sequence>
-         *         &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+         *         &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
          *       &lt;/sequence>
          *       &lt;attribute name="class" type="{http://www.w3.org/2001/XMLSchema}string" />
          *       &lt;attribute name="name" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -1896,7 +1930,7 @@ public class Scenario {
      *             &lt;complexContent>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *                 &lt;sequence>
-     *                   &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+     *                   &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
      *                 &lt;/sequence>
      *                 &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}string" />
      *                 &lt;attribute name="class" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -2022,7 +2056,7 @@ public class Scenario {
          *   &lt;complexContent>
          *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
          *       &lt;sequence>
-         *         &lt;element ref="{urn:perfcake:scenario:6.0}property" maxOccurs="unbounded" minOccurs="0"/>
+         *         &lt;element ref="{urn:perfcake:scenario:7.0}property" maxOccurs="unbounded" minOccurs="0"/>
          *       &lt;/sequence>
          *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}string" />
          *       &lt;attribute name="class" type="{http://www.w3.org/2001/XMLSchema}string" />

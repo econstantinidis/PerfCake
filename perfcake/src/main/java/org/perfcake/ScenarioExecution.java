@@ -166,7 +166,9 @@ public class ScenarioExecution {
       options.addOption(Option.builder("log").longOpt(PerfCakeConst.LOGGING_LEVEL_OPT).desc("logging level").hasArg().argName("LOG_LEVEL").build());
       options.addOption(Option.builder("skip").longOpt(PerfCakeConst.SKIP_TIMER_BENCHMARK_OPT).desc("skip system timer benchmark").build());
       options.addOption(Option.builder("D").argName("property=value").numberOfArgs(2).valueSeparator().desc("system properties").build());
+      options.addOption(Option.builder("slave").longOpt(PerfCakeConst.SCENARIOS_DIR_OPT).desc("directory for scenarios").hasArg().argName("SCENARIOS_DIR").build());
 
+      
       final CommandLineParser commandLineParser = new DefaultParser();
       try {
          commandLine = commandLineParser.parse(options, args);

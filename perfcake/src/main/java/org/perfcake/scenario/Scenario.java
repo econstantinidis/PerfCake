@@ -20,6 +20,7 @@
 package org.perfcake.scenario;
 
 import org.perfcake.PerfCakeException;
+import org.perfcake.distribution.DistributionManager;
 import org.perfcake.message.MessageTemplate;
 import org.perfcake.message.generator.MessageGenerator;
 import org.perfcake.message.sender.MessageSenderManager;
@@ -51,6 +52,9 @@ public class Scenario {
     * Message generator.
     */
    private MessageGenerator generator;
+   
+   private DistributionManager distributionManager;
+   
 
    /**
     * Manager of message senders.
@@ -278,5 +282,24 @@ public class Scenario {
     */
    SequenceManager getSequenceManager() {
       return sequenceManager;
+   }
+   
+   /**
+    * Sets the current {@link SequenceManager}.
+    *
+    * @param sequenceManager
+    *       The {@link SequenceManager} to be set.
+    */
+   public void setDistributionManager(final DistributionManager distributionManager) {
+      this.distributionManager = distributionManager;
+   }
+
+   /**
+    * Gets the current {@link SequenceManager}.
+    *
+    * @return The current {@link SequenceManager}.
+    */
+   DistributionManager getDistributionManager() {
+      return distributionManager;
    }
 }
