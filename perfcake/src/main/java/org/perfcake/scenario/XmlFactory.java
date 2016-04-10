@@ -201,7 +201,6 @@ public class XmlFactory implements ScenarioFactory {
         	 System.out.println("here");
             scenarioXsdUrl = backupUrl; // backup taken from the web
          }
-         scenarioXsdUrl = new URL("file:///C:/Users/Emmanuel/git/PerfCake/perfcake/src/main/resources/schemas/perfcake-scenario-7.0.xsd");
 
          final SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
          final Schema schema = schemaFactory.newSchema(scenarioXsdUrl);
