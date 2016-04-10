@@ -178,8 +178,12 @@ public class ScenarioExecution {
          System.exit(PerfCakeConst.ERR_PARAMETERS);
          return;
       }
-
-      log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!" + commandLine.getOptionValue(PerfCakeConst.SLAVE_OPT));
+      
+      if (commandLine.hasOption(PerfCakeConst.SCENARIO_OPT)
+      		&& commandLine.hasOption(PerfCakeConst.SLAVE_OPT)) {
+      	log.fatal("Cannot specify both a scenario file and slave mode");
+      	System.exit(PerfCakeConst.ERR_PARAMETERS);
+      }
       
       if (commandLine.hasOption(PerfCakeConst.SCENARIO_OPT)) {
          System.setProperty(PerfCakeConst.SCENARIO_PROPERTY, commandLine.getOptionValue(PerfCakeConst.SCENARIO_OPT));
