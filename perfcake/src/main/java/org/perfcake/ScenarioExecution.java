@@ -187,9 +187,7 @@ public class ScenarioExecution {
       
       if (commandLine.hasOption(PerfCakeConst.SCENARIO_OPT)) {
          System.setProperty(PerfCakeConst.SCENARIO_PROPERTY, commandLine.getOptionValue(PerfCakeConst.SCENARIO_OPT));
-      } else if (commandLine.hasOption(PerfCakeConst.SLAVE_OPT)) {
-    	  System.setProperty(PerfCakeConst.MASTER_IP_PROPERTY, commandLine.getOptionValue(PerfCakeConst.SLAVE_OPT));
-      } else {
+      } else if (!commandLine.hasOption(PerfCakeConst.SLAVE_OPT)){
          formatter.printHelp(PerfCakeConst.USAGE_HELP, options);
          System.exit(PerfCakeConst.ERR_NO_SCENARIO);
          return;
@@ -237,17 +235,35 @@ public class ScenarioExecution {
    }
 
    /**
-    * Loads the scenario from the XML file specified at the command line.
+    * Loads the scenario from the XML file or the master server specified at the command line.
     */
    private void loadScenario() {
 
-   	final String masterIp = Utils.getProperty(PerfCakeConst.MASTER_IP_PROPERTY);
+   	final String masterIp = commandLine.getOptionValue(PerfCakeConst.SLAVE_OPT);
    	
-   	if (masterIp != null) {
-   		// TODO parse master IP and port
-   		// assume default port if none specified
-   		log.info("MASTER: " + masterIp);
-   		setupSlaveSocket();
+   	if (masterIp != null) { // Run in slave mode
+   		String masterHost;
+   		String masterPort;
+   		int port = 0;
+   		
+   		int colonIndex = masterIp.indexOf(":");
+   		if (colonIndex != -1) {
+   			masterHost = masterIp.substring(0, colonIndex);
+   			masterPort = masterIp.substring(colonIndex + 1);
+   		} else {
+   			masterHost = masterIp;
+   			// assume default port
+   			masterPort = PerfCakeConst.DEFAULT_MASTER_PORT;
+   		}
+   		
+   		try {
+   			port = Integer.parseInt(masterPort);
+   		} catch (NumberFormatException e) {
+   			log.fatal("Cannot parse master port");
+   			System.exit(PerfCakeConst.ERR_PARAMETERS);
+   		}
+   		
+   		setupSlaveSocket(masterHost, port);
 
       	try {
       		scenario = ScenarioLoader.loadFromMaster();
@@ -256,7 +272,7 @@ public class ScenarioExecution {
       		System.exit(PerfCakeConst.ERR_SCENARIO_LOADING);
       	}
    		
-   	} else {
+   	} else { // Regular PerfCake execution
       	final String scenarioFile = Utils.getProperty(PerfCakeConst.SCENARIO_PROPERTY);
 
       	try {
@@ -268,8 +284,9 @@ public class ScenarioExecution {
    	}
    }
    
-   private void setupSlaveSocket() {
-   	// TODO setup slave sockets
+   private void setupSlaveSocket(String host, int port) {
+   	// FIXME setup slave sockets
+   	log.info("Slave socket setup requested [host:" + host + " port:" + port + "]");
    }
 
    /**

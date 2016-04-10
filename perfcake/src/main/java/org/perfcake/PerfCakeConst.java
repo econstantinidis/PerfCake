@@ -67,9 +67,19 @@ public final class PerfCakeConst {
    public static final String SCENARIO_PROPERTY = "perfcake.scenario";
    
    /**
-    * Name of the system property that stores the IP of the master server.
+    * Name of the system property that stores the hostname/IP of the master server.
     */
-   public static final String MASTER_IP_PROPERTY = "perfcake.scenario.master";
+   public static final String MASTER_HOST_PROPERTY = "perfcake.scenario.master.host";
+   
+   /**
+    * Name of the system property that stores the listen port of the master server.
+    */
+   public static final String MASTER_PORT_PROPERTY = "perfcake.scenario.master.port";
+   
+   /**
+    * Default listen port of master server.
+    */
+   public static final String DEFAULT_MASTER_PORT = "12345";
 
    /**
     * Name of the system property that stores name of the default String encoding.

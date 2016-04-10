@@ -85,7 +85,7 @@ public class ScenarioLoader {
     *       If there is some problem with loading the scenario.
     */
    public static Scenario loadFromMaster() throws PerfCakeException {
-      // TODO use custom factory
+      // FIXME use custom factory
    	
    	log.info("Loading from master");
    	System.exit(PerfCakeConst.ERR_SCENARIO_LOADING);
