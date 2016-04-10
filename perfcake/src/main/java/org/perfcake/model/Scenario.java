@@ -8,6 +8,7 @@
 
 package org.perfcake.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -237,9 +238,14 @@ import javax.xml.bind.annotation.XmlType;
     "validation"
 })
 @XmlRootElement(name = "scenario")
-public class Scenario {
+public class Scenario implements Serializable {
 
-    protected Scenario.Distribution distribution;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	protected Scenario.Distribution distribution;
     protected Scenario.Properties properties;
     @XmlElement(required = true)
     protected Scenario.Run run;
