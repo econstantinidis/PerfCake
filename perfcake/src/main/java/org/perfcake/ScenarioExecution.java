@@ -268,7 +268,7 @@ public class ScenarioExecution {
       	try {
       		scenario = ScenarioLoader.loadFromMaster();
       	} catch (final Exception e) {
-      		log.fatal(String.format("Cannot load scenario from master @ '%s': ", masterIp), e);
+      		log.fatal(String.format("Cannot load scenario from master '%s': ", masterIp), e);
       		System.exit(PerfCakeConst.ERR_SCENARIO_LOADING);
       	}
    		

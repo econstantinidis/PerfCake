@@ -85,39 +85,10 @@ public class ScenarioLoader {
     *       If there is some problem with loading the scenario.
     */
    public static Scenario loadFromMaster() throws PerfCakeException {
-      // FIXME use custom factory
+   	ScenarioFactory scenarioFactory = new SlaveFactory();
    	
-   	log.info("Loading from master");
-   	System.exit(PerfCakeConst.ERR_SCENARIO_LOADING);
-   	
-   	return null;
-   	/*if (scenario == null) {
-         throw new PerfCakeException("Scenario property is not set. Please use -Dscenario=<scenario name> to specify a scenario.");
-      }
-
-      final URL scenarioUrl;
-      try {
-         scenarioUrl = Utils.locationToUrlWithCheck(scenario, PerfCakeConst.SCENARIOS_DIR_PROPERTY, Utils.determineDefaultLocation("scenarios"), ".xml", ".dsl");
-      } catch (final MalformedURLException e) {
-         throw new PerfCakeException("Cannot parse scenario configuration location: ", e);
-      }
-
-      log.info("Scenario configuration: " + scenarioUrl.toString());
-
-      if (log.isTraceEnabled()) {
-         log.trace("Parsing scenario " + scenarioUrl.toString());
-      }
-
-      String extension = "UNKNOWN";
-      final int lastDot = scenarioUrl.toString().lastIndexOf(".");
-      if (lastDot > -1) {
-         extension = scenarioUrl.toString().substring(lastDot + 1).toLowerCase();
-      }
-
-      final ScenarioFactory scenarioFactory = getFactory(extension);
-      scenarioFactory.init(scenarioUrl);
-
-      return scenarioFactory.getScenario();*/
+   	scenarioFactory.init(null);
+   	return scenarioFactory.getScenario();  	
    }
    
    private static ScenarioFactory getFactory(final String extension) throws PerfCakeException {
