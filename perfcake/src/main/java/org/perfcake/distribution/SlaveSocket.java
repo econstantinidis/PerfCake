@@ -9,6 +9,7 @@ import java.net.Socket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.perfcake.PerfCakeConst;
+import org.perfcake.model.Scenario;
 
 public class SlaveSocket {
 
@@ -20,6 +21,10 @@ public class SlaveSocket {
 	private Socket sock;
 	private InputStream iStream;
 	private OutputStream oStream;
+	
+	public static SlaveSocket getInstance() {
+		return instance;
+	}
 	
 	public static void setupSlaveSocket(InetAddress masterAddress, int port) {
 		log.info("Connecting to master " + masterAddress.getHostAddress() + ", port " + port);
@@ -41,6 +46,9 @@ public class SlaveSocket {
 		this.oStream = sock.getOutputStream();
 	}
 	
+	public Scenario getScenarioModel() {
+		// FIXME actually get stuff
+		return null;
+	}
 	
-
 }
