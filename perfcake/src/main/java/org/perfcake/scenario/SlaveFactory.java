@@ -16,7 +16,10 @@ public class SlaveFactory implements ScenarioFactory {
 
 	@Override
 	public void init(URL scenarioURL) throws PerfCakeException {
-		// no init necessary
+		// expect a null scenarioURL - ignore this parameter
+		
+		// Request scenario data - socket already setup
+		
 	}
 
 	@Override

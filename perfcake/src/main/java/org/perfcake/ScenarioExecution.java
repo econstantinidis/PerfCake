@@ -21,8 +21,10 @@ package org.perfcake;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,6 +42,7 @@ import org.apache.commons.cli.ParseException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.perfcake.distribution.SlaveSocket;
 import org.perfcake.scenario.Scenario;
 import org.perfcake.scenario.ScenarioLoader;
 import org.perfcake.util.TimerBenchmark;
@@ -285,8 +288,12 @@ public class ScenarioExecution {
    }
    
    private void setupSlaveSocket(String host, int port) {
-   	// FIXME setup slave sockets
-   	log.info("Slave socket setup requested [host:" + host + " port:" + port + "]");
+   	try {
+			SlaveSocket.setupSlaveSocket(InetAddress.getByName(host), port);
+		} catch (UnknownHostException e) {
+			log.fatal("Cannot parse master host");
+			System.exit(PerfCakeConst.ERR_PARAMETERS);
+		}
    }
 
    /**

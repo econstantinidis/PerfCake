@@ -215,6 +215,11 @@ public final class PerfCakeConst {
     * Exit code when there are blocked threads after the scenario was executed.
     */
    public static final int ERR_BLOCKED_THREADS = 6;
+   
+   /**
+    * Exit code when there is an error with master slave communication.
+    */
+   public static final int ERR_SLAVE_SOCKET = 7;
 
    /**
     * There should be no instance of a utility class.
