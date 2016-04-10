@@ -1,0 +1,9 @@
+# Generated files
+*.class
+target
+logs
+*.log
+*.log.*
+test-output
+*.csv
+perfcake-chart
