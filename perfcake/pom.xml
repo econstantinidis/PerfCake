@@ -545,7 +545,10 @@
             <plugin>
                <groupId>org.codehaus.mojo</groupId>
                <artifactId>exec-maven-plugin</artifactId>
-               <configuration>
+               <executions>
+                  <execution>
+                  <id>master</id>
+                  <configuration>
                   <executable>java</executable>
                   <arguments>
                      <argument>-Djava.ext.dirs=${java.home}/lib/ext:${java.home}/jre/lib/ext:${basedir}/lib/ext</argument>
@@ -554,8 +557,28 @@
                      <argument>-cp</argument>
                      <classpath />
                      <argument>org.perfcake.ScenarioExecution</argument>
-                     <!-- <argument>-s</argument> -->
-                     <!-- <argument>${scenario}</argument> -->
+                     <argument>-s</argument>
+                     <argument>${scenario}</argument>
+                     <argument>-sd</argument>
+                     <argument>${basedir}/src/main/resources/scenarios</argument>
+                     <argument>-md</argument>
+                     <argument>${basedir}/src/main/resources/messages</argument>
+                     <argument>-Dserver.host=${server.host}</argument>
+                     <argument>-Dserver.port=${server.port}</argument>
+                  </arguments>
+                  </configuration>
+                  </execution>
+                  <execution>
+                  <id>slave</id>
+                  <configuration>
+                  <executable>java</executable>
+                  <arguments>
+                     <argument>-Djava.ext.dirs=${java.home}/lib/ext:${java.home}/jre/lib/ext:${basedir}/lib/ext</argument>
+                     <argument>-Dlog4j.configurationFile=file://${basedir}/src/main/resources/log4j2.xml</argument>
+                     <argument>-ea</argument>
+                     <argument>-cp</argument>
+                     <classpath />
+                     <argument>org.perfcake.ScenarioExecution</argument>
                      <argument>-m</argument>
                      <argument>${master}</argument>
                      <argument>-sd</argument>
@@ -565,7 +588,9 @@
                      <argument>-Dserver.host=${server.host}</argument>
                      <argument>-Dserver.port=${server.port}</argument>
                   </arguments>
-               </configuration>
+                  </configuration>
+                  </execution>
+               </executions>
             </plugin>
             <plugin>
                <groupId>org.apache.maven.plugins</groupId>
