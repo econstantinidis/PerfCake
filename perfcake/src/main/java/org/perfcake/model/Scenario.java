@@ -240,9 +240,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "scenario")
 public class Scenario implements Serializable {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	protected Scenario.Distribution distribution;
@@ -495,9 +492,11 @@ public class Scenario implements Serializable {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "")
-    public static class Distribution {
+    public static class Distribution implements Serializable {
 
-        @XmlAttribute(name = "port")
+		private static final long serialVersionUID = 1L;
+		
+		@XmlAttribute(name = "port")
         protected Integer port;
         @XmlAttribute(name = "address")
         protected String address;
@@ -578,9 +577,11 @@ public class Scenario implements Serializable {
     @XmlType(name = "", propOrder = {
         "property"
     })
-    public static class Generator {
+    public static class Generator implements Serializable {
 
-        protected List<Property> property;
+		private static final long serialVersionUID = 1L;
+		
+		protected List<Property> property;
         @XmlAttribute(name = "class")
         protected String clazz;
         @XmlAttribute(name = "threads")
@@ -712,9 +713,11 @@ public class Scenario implements Serializable {
     @XmlType(name = "", propOrder = {
         "message"
     })
-    public static class Messages {
+    public static class Messages implements Serializable {
 
-        @XmlElement(required = true)
+		private static final long serialVersionUID = 1L;
+		
+		@XmlElement(required = true)
         protected List<Scenario.Messages.Message> message;
 
         /**
@@ -785,9 +788,11 @@ public class Scenario implements Serializable {
             "property",
             "validatorRef"
         })
-        public static class Message {
+        public static class Message implements Serializable {
 
-            protected List<Header> header;
+			private static final long serialVersionUID = 1L;
+			
+			protected List<Header> header;
             protected List<Property> property;
             protected List<Scenario.Messages.Message.ValidatorRef> validatorRef;
             @XmlAttribute(name = "uri")
@@ -976,9 +981,11 @@ public class Scenario implements Serializable {
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "")
-            public static class ValidatorRef {
+            public static class ValidatorRef implements Serializable {
 
-                @XmlAttribute(name = "id")
+				private static final long serialVersionUID = 1L;
+				
+				@XmlAttribute(name = "id")
                 protected String id;
 
                 /**
@@ -1035,9 +1042,11 @@ public class Scenario implements Serializable {
     @XmlType(name = "", propOrder = {
         "property"
     })
-    public static class Properties {
+    public static class Properties implements Serializable {
 
-        protected List<Property> property;
+		private static final long serialVersionUID = 1L;
+		
+		protected List<Property> property;
 
         /**
          * Gets the value of the property property.
@@ -1133,9 +1142,11 @@ public class Scenario implements Serializable {
         "property",
         "reporter"
     })
-    public static class Reporting {
+    public static class Reporting implements Serializable {
 
-        protected List<Property> property;
+		private static final long serialVersionUID = 1L;
+		
+		protected List<Property> property;
         @XmlElement(required = true)
         protected List<Scenario.Reporting.Reporter> reporter;
 
@@ -1247,9 +1258,11 @@ public class Scenario implements Serializable {
             "property",
             "destination"
         })
-        public static class Reporter {
+        public static class Reporter implements Serializable {
 
-            protected List<Property> property;
+			private static final long serialVersionUID = 1L;
+			
+			protected List<Property> property;
             protected List<Scenario.Reporting.Reporter.Destination> destination;
             @XmlAttribute(name = "class")
             protected String clazz;
@@ -1403,9 +1416,11 @@ public class Scenario implements Serializable {
                 "period",
                 "property"
             })
-            public static class Destination {
+            public static class Destination implements Serializable {
 
-                protected List<Scenario.Reporting.Reporter.Destination.Period> period;
+				private static final long serialVersionUID = 1L;
+				
+				protected List<Scenario.Reporting.Reporter.Destination.Period> period;
                 protected List<Property> property;
                 @XmlAttribute(name = "class")
                 protected String clazz;
@@ -1543,9 +1558,11 @@ public class Scenario implements Serializable {
                  */
                 @XmlAccessorType(XmlAccessType.FIELD)
                 @XmlType(name = "")
-                public static class Period {
+                public static class Period implements Serializable {
 
-                    @XmlAttribute(name = "type")
+					private static final long serialVersionUID = 1L;
+					
+					@XmlAttribute(name = "type")
                     protected String type;
                     @XmlAttribute(name = "value")
                     protected String value;
@@ -1627,9 +1644,11 @@ public class Scenario implements Serializable {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "")
-    public static class Run {
+    public static class Run implements Serializable {
 
-        @XmlAttribute(name = "type")
+		private static final long serialVersionUID = 1L;
+		
+		@XmlAttribute(name = "type")
         protected String type;
         @XmlAttribute(name = "value")
         protected String value;
@@ -1711,9 +1730,11 @@ public class Scenario implements Serializable {
         "target",
         "property"
     })
-    public static class Sender {
+    public static class Sender implements Serializable {
 
-        protected String target;
+		private static final long serialVersionUID = 1L;
+		
+		protected String target;
         protected List<Property> property;
         @XmlAttribute(name = "class")
         protected String clazz;
@@ -1833,9 +1854,11 @@ public class Scenario implements Serializable {
     @XmlType(name = "", propOrder = {
         "sequence"
     })
-    public static class Sequences {
+    public static class Sequences implements Serializable {
 
-        protected List<Scenario.Sequences.Sequence> sequence;
+		private static final long serialVersionUID = 1L;
+		
+		protected List<Scenario.Sequences.Sequence> sequence;
 
         /**
          * Gets the value of the sequence property.
@@ -1892,9 +1915,11 @@ public class Scenario implements Serializable {
         @XmlType(name = "", propOrder = {
             "property"
         })
-        public static class Sequence {
+        public static class Sequence implements Serializable {
 
-            protected List<Property> property;
+			private static final long serialVersionUID = 1L;
+			
+			protected List<Property> property;
             @XmlAttribute(name = "class")
             protected String clazz;
             @XmlAttribute(name = "name")
@@ -2019,9 +2044,11 @@ public class Scenario implements Serializable {
     @XmlType(name = "", propOrder = {
         "validator"
     })
-    public static class Validation {
+    public static class Validation implements Serializable {
 
-        protected List<Scenario.Validation.Validator> validator;
+		private static final long serialVersionUID = 1L;
+		
+		protected List<Scenario.Validation.Validator> validator;
         @XmlAttribute(name = "enabled")
         protected Boolean enabled;
         @XmlAttribute(name = "fastForward")
@@ -2138,9 +2165,11 @@ public class Scenario implements Serializable {
         @XmlType(name = "", propOrder = {
             "property"
         })
-        public static class Validator {
+        public static class Validator implements Serializable {
 
-            protected List<Property> property;
+			private static final long serialVersionUID = 1L;
+			
+			protected List<Property> property;
             @XmlAttribute(name = "id")
             protected String id;
             @XmlAttribute(name = "class")
