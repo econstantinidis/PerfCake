@@ -594,6 +594,7 @@ public class XmlFactory implements ScenarioFactory {
 	   	  Distribution input = scenarioModel.getDistribution();
 	      final DistributionManager distributionManager = new DistributionManager(input.getPort(), input.getAddress());
 	      //TODO get it working
+	      distributionManager.SendToSlaves(scenarioModel);
 	      return distributionManager;
 	   }
 
