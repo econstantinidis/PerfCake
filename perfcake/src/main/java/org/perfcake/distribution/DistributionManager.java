@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,34 +20,91 @@ import org.perfcake.reporting.Measurement;
 import org.perfcake.reporting.MeasurementWrapper;
 import org.perfcake.reporting.ReportingException;
 import org.perfcake.util.ObjectFactory;
+import org.springframework.core.task.support.ConcurrentExecutorAdapter;
 import org.w3c.dom.Element;
 
 public class DistributionManager {
 
 	private static final Logger log = LogManager.getLogger(DistributionManager.class);
 
+	private static final long JOIN_TIMEOUT_MILLISECONDS = 1000L;
+
+	private static final String DEFAULT_REPORTER_PACKAGE = "org.perfcake.reporting.reporters";
+	private static final String DEFAULT_DESTINATION_PACKAGE = "org.perfcake.reporting.destinations";
+
 	private MasterListener listener;
 	private Thread listenerThread;
+	private List<Thread> slaveHandlerThreads;
+
+	private boolean masterRunning = false;
 
 	private Scenario scenarioModel;
 	private Map<String, Map<String, org.perfcake.reporting.destinations.Destination>> destinationMap;
-
-	private String DEFAULT_REPORTER_PACKAGE = "org.perfcake.reporting.reporters";
-	private String DEFAULT_DESTINATION_PACKAGE = "org.perfcake.reporting.destinations";
 
 	private boolean reportDestinationsSetup = false;;
 
 	public DistributionManager(InetAddress listenAddress, int port)
 	{
 		destinationMap = new ConcurrentHashMap<>();
+		slaveHandlerThreads = new CopyOnWriteArrayList<>();
 
 		listener = new MasterListener(this, listenAddress, port);
 		listenerThread = new Thread(listener);
+
+		masterRunning = true;
+
 		listenerThread.start();
 	}
 
+	public boolean isRunning() {
+		return masterRunning;
+	}
+
+	public void shutdownMaster() {
+		log.info("Shutting down Master");
+
+		masterRunning = false;
+
+		// join threads
+		try {
+			listenerThread.join(JOIN_TIMEOUT_MILLISECONDS);
+		} catch (InterruptedException e) {
+			log.warn("Interrupted when joining master listener thread", e);
+		}
+
+		for (Thread t : slaveHandlerThreads) {
+			try {
+				t.join(JOIN_TIMEOUT_MILLISECONDS);
+			} catch (InterruptedException e) {
+				log.warn("Interrupted when joining slave handler thread", e);
+			}
+		}
+		
+		log.info("Closing reporter destinations");
+		closeAllReporterDestinations();
+		
+		// shutdown finished
+		log.info("Master shutdown complete");
+		log.info("=== Goodbye! ===");
+	}
+
 	public void accept(Socket s) {
-		new Thread(new SlaveHandler(this, s)).start();
+		log.info("Slave connected from " + s.getRemoteSocketAddress());
+
+		Thread handler = new Thread(new SlaveHandler(this, s));
+		slaveHandlerThreads.add(handler);
+		handler.start();
+	}
+
+	public void handlerFinished(Thread handler) {
+		try {
+			log.info("Slave disconnected");
+			handler.join(JOIN_TIMEOUT_MILLISECONDS);
+		} catch (InterruptedException e) {
+			log.warn("Interrupted when joining slave handler thread", e);
+		} finally {
+			slaveHandlerThreads.remove(handler);
+		}
 	}
 
 	public Scenario getScenarioModel() {
@@ -84,6 +142,12 @@ public class DistributionManager {
 		destinationMap.entrySet().stream()
 		.flatMap(e -> e.getValue().values().stream())
 		.forEach(d -> d.open());
+	}
+
+	private void closeAllReporterDestinations() {
+		destinationMap.entrySet().stream()
+		.flatMap(e -> e.getValue().values().stream())
+		.forEach(d -> d.close());
 	}
 
 	private void setupReportDestinations(Scenario model) throws PerfCakeException {

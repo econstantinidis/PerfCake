@@ -32,7 +32,7 @@ public class SlaveHandler implements Runnable {
 		try //try to grab stream from socket
 		{
 			in = new ObjectInputStream(sock.getInputStream());
-			while (true)
+			while (manager.isRunning())
 			{
 				try //try to read from socket
 				{
