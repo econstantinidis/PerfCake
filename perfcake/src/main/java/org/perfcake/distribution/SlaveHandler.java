@@ -1,13 +1,10 @@
 package org.perfcake.distribution;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import org.perfcake.reporting.Measurement;
 import org.perfcake.reporting.MeasurementWrapper;
 
 public class SlaveHandler implements Runnable {
@@ -39,7 +36,7 @@ public class SlaveHandler implements Runnable {
 					MeasurementWrapper wrapper = (MeasurementWrapper) in.readObject();
 					if(wrapper != null)
 					{
-						reportMeasurement(wrapper);
+						manager.report(wrapper);
 					}
 					
 				}
@@ -54,11 +51,6 @@ public class SlaveHandler implements Runnable {
 		{
 			e.printStackTrace();
 		}
-		
-	}
-	
-	private void reportMeasurement(MeasurementWrapper measurement)
-	{
 		
 	}
 
