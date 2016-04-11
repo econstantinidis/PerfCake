@@ -15,7 +15,7 @@ public class DistributionManager {
 	private MasterListener listener;
 	private Thread listenerThread;
 	
-	private Scenario scenarioModel;
+	private Scenario slaveScenarioModel;
 	
 	public DistributionManager(InetAddress listenAddress, int port)
 	{
@@ -28,12 +28,14 @@ public class DistributionManager {
 		new Thread(new SlaveHandler(this, s)).start();
 	}
 
-	public Scenario getScenarioModel() {
-		return scenarioModel;		
+	public Scenario getSlaveScenarioModel() {
+		return slaveScenarioModel;		
 	}
 	
 	public void setScenarioModel(Scenario scenarioModel) {
-		this.scenarioModel = transformToSlaveScenarioModel(scenarioModel);
+		// FIXME setup mappings once at set time - throw if anyone tries to reset
+		
+		this.slaveScenarioModel = transformToSlaveScenarioModel(scenarioModel);
 	}
 
 	private Scenario transformToSlaveScenarioModel(Scenario model) {
