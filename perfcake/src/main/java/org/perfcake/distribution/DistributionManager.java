@@ -5,7 +5,6 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -120,14 +119,16 @@ public class DistributionManager {
 				log.warn("Error setting up destinations on master", e);
 			}
 
-			// Debug setup
+			// Debug output
+			/*
 			for (Entry<String, Map<String, org.perfcake.reporting.destinations.Destination>> e : destinationMap.entrySet()) {
-				log.info("Reporter Key: " + e.getKey());
+				log.debug("Reporter Key: " + e.getKey());
 				for (Entry<String, org.perfcake.reporting.destinations.Destination> d : e.getValue().entrySet()) {
-					log.info("Destination Key: " + d.getKey());
-					log.info("Destination Class: " + d.getValue().getClass().getName());
+					log.debug("Destination Key: " + d.getKey());
+					log.debug("Destination Class: " + d.getValue().getClass().getName());
 				}
 			}
+			*/
 
 			this.scenarioModel = scenarioModel;
 
