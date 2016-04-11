@@ -59,33 +59,35 @@ public class DistributionManager {
 	}
 
 	public void shutdownMaster() {
-		log.info("Shutting down Master");
+		if (masterRunning) {
+			log.info("Shutting down Master");
 
-		masterRunning = false;
+			masterRunning = false;
 
-		// join threads
-		try {
-			listenerThread.join(JOIN_TIMEOUT_MILLISECONDS);
-		} catch (InterruptedException e) {
-			log.warn("Interrupted when joining master listener thread", e);
-		}
-
-		for (Thread t : slaveHandlerThreads) {
+			// join threads
 			try {
-				t.join(JOIN_TIMEOUT_MILLISECONDS);
+				listenerThread.join(JOIN_TIMEOUT_MILLISECONDS);
 			} catch (InterruptedException e) {
-				log.warn("Interrupted when joining slave handler thread", e);
+				log.warn("Interrupted when joining master listener thread", e);
 			}
+
+			for (Thread t : slaveHandlerThreads) {
+				try {
+					t.join(JOIN_TIMEOUT_MILLISECONDS);
+				} catch (InterruptedException e) {
+					log.warn("Interrupted when joining slave handler thread", e);
+				}
+			}
+
+			log.info("Closing reporter destinations");
+			closeAllReporterDestinations();
+
+			// shutdown finished
+			log.info("Master shutdown complete");
+			log.info("=== Goodbye! ===");
+
+			System.exit(0);
 		}
-
-		log.info("Closing reporter destinations");
-		closeAllReporterDestinations();
-
-		// shutdown finished
-		log.info("Master shutdown complete");
-		log.info("=== Goodbye! ===");
-		
-		System.exit(0);
 	}
 
 	public void accept(Socket s) {
@@ -128,7 +130,7 @@ public class DistributionManager {
 					log.debug("Destination Class: " + d.getValue().getClass().getName());
 				}
 			}
-			*/
+			 */
 
 			this.scenarioModel = scenarioModel;
 
