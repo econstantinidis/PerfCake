@@ -5,13 +5,16 @@ import java.net.Socket;
 
 import org.perfcake.model.Scenario;
 import org.perfcake.reporting.MeasurementWrapper;
+import org.perfcake.model.Scenario.Reporting;
+import org.perfcake.model.Scenario.Reporting.Reporter;
+import org.perfcake.model.Scenario.Reporting.Reporter.Destination;
 
 public class DistributionManager {
 
 	private MasterListener listener;
 	private Thread listenerThread;
 	
-	private Scenario scenarioModel;
+	private Scenario slaveScenarioModel;
 	
 	public DistributionManager(InetAddress listenAddress, int port)
 	{
@@ -24,12 +27,37 @@ public class DistributionManager {
 		new Thread(new SlaveHandler(this, s)).start();
 	}
 
-	public Scenario getScenarioModel() {
-		return scenarioModel;		
+	public Scenario getSlaveScenarioModel() {
+		return slaveScenarioModel;		
 	}
 	
 	public void setScenarioModel(Scenario scenarioModel) {
-		this.scenarioModel = scenarioModel;		
+		// FIXME setup mappings once at set time - throw if anyone tries to reset
+		
+		this.slaveScenarioModel = transformToSlaveScenarioModel(scenarioModel);
+	}
+
+	private Scenario transformToSlaveScenarioModel(Scenario model) {
+		Reporting reporting = model.getReporting();
+		
+		if (reporting != null) {
+			List<Reporter> reporters = reporting.getReporter();
+			
+			if (reporters != null) {
+				for (Reporter r : reporters) {
+					if (r.isEnabled()) {
+						List<Destination> destinations = r.getDestination();
+						if (destinations != null) {
+							for (Destination d : destinations) {
+								d.setClazz(PerfCakeConst.MASTER_REPORTING_DESTINATION);
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return model;
 	}
 	
 	public void report(MeasurementWrapper wrapper)

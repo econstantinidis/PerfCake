@@ -67,7 +67,7 @@ public class SlaveHandler implements Runnable {
 
 		try {
 			oos = new ObjectOutputStream(sock.getOutputStream());
-			oos.writeObject(manager.getScenarioModel());
+			oos.writeObject(manager.getSlaveScenarioModel());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
