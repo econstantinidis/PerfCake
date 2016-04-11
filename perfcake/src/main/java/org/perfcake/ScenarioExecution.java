@@ -75,6 +75,8 @@ public class ScenarioExecution {
 	 */
 	private boolean skipTimerBenchmark = false;
 
+	private boolean masterMode = false;
+
 	/**
 	 * Parses command line arguments and creates this class to take care of the Scenario execution.
 	 *
@@ -103,7 +105,13 @@ public class ScenarioExecution {
 
 		se.executeScenario();
 
-		log.info("=== Goodbye! ===");
+		if (!se.isMaster()) {
+			log.info("=== Goodbye! ===");
+		}
+	}
+	
+	public boolean isMaster() {
+		return masterMode;
 	}
 
 	/**
@@ -284,6 +292,12 @@ public class ScenarioExecution {
 				log.fatal(String.format("Cannot load scenario '%s': ", scenarioFile), e);
 				System.exit(PerfCakeConst.ERR_SCENARIO_LOADING);
 			}
+			// stop timer benchmark if master
+			if (scenario.getDistributionManager() != null) {
+				masterMode = true;
+				skipTimerBenchmark = true;
+			}
+
 		}
 	}
 
@@ -336,9 +350,6 @@ public class ScenarioExecution {
 		} else {
 			// Master mode
 			log.info("Running in Master mode");
-			while (true) {
-				// do nothing
-			}
 		}
 	}
 }
