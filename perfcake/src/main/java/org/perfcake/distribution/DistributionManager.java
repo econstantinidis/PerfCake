@@ -79,10 +79,10 @@ public class DistributionManager {
 				log.warn("Interrupted when joining slave handler thread", e);
 			}
 		}
-		
+
 		log.info("Closing reporter destinations");
 		closeAllReporterDestinations();
-		
+
 		// shutdown finished
 		log.info("Master shutdown complete");
 		log.info("=== Goodbye! ===");
@@ -221,10 +221,12 @@ public class DistributionManager {
 				.get(wrapper.destinationClazz);
 
 		if (d != null) {
-			try {
-				d.report(m);
-			} catch (ReportingException e) {
-				log.info("Reporting error on master", e);
+			synchronized (d) {
+				try {
+					d.report(m);
+				} catch (ReportingException e) {
+					log.info("Reporting error on master", e);
+				}
 			}
 		} else {
 			log.warn("No destination found for recieved measurement [reporterClazz="
