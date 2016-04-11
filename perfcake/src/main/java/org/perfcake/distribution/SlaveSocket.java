@@ -78,5 +78,16 @@ public class SlaveSocket {
 			}
 		}
 	}
+	
+	public void close() {
+		try {
+			objOutStream.reset();
+			objOutStream.close();
+			sock.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }

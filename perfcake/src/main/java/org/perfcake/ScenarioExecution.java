@@ -30,6 +30,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import org.apache.commons.cli.CommandLine;
@@ -76,6 +77,8 @@ public class ScenarioExecution {
 	private boolean skipTimerBenchmark = false;
 
 	private boolean masterMode = false;
+	
+	private boolean slaveMode = false;
 
 	/**
 	 * Parses command line arguments and creates this class to take care of the Scenario execution.
@@ -104,7 +107,27 @@ public class ScenarioExecution {
 		se.printTraceInformation();
 
 		se.executeScenario();
-
+		
+		if (se.isMaster()) {
+			Scanner sc = new Scanner(System.in);
+			boolean quit = false;
+			
+			while (!quit) {
+				String input = sc.nextLine();
+				
+				if (input.compareToIgnoreCase("Q") == 0) {
+					quit = true;
+				}
+			}
+			
+			se.scenario.getDistributionManager().shutdownMaster();
+			sc.close();
+		}
+		
+		if (se.isSlave()) {
+			se.closeSlaveSocket();
+		}
+		
 		if (!se.isMaster()) {
 			log.info("=== Goodbye! ===");
 		}
@@ -112,6 +135,10 @@ public class ScenarioExecution {
 	
 	public boolean isMaster() {
 		return masterMode;
+	}
+	
+	public boolean isSlave() {
+		return slaveMode;
 	}
 
 	/**
@@ -275,7 +302,8 @@ public class ScenarioExecution {
 			}
 
 			setupSlaveSocket(masterHost, port);
-
+			slaveMode = true;
+			
 			try {
 				scenario = ScenarioLoader.loadFromMaster();
 			} catch (final Exception e) {
@@ -308,6 +336,10 @@ public class ScenarioExecution {
 			log.fatal("Cannot parse master host");
 			System.exit(PerfCakeConst.ERR_PARAMETERS);
 		}
+	}
+	
+	private void closeSlaveSocket() {
+		SlaveSocket.getInstance().close();
 	}
 
 	/**
