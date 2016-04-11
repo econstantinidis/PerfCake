@@ -33,8 +33,10 @@ import org.perfcake.model.Scenario.Reporting;
 import org.perfcake.model.Scenario.Sender;
 import org.perfcake.model.Scenario.Validation;
 import org.perfcake.model.Scenario.Messages.Message.ValidatorRef;
+import org.perfcake.reporting.MeasurementWrapper;
 import org.perfcake.reporting.ReportManager;
 import org.perfcake.reporting.destinations.Destination;
+import org.perfcake.reporting.destinations.MasterDestination;
 import org.perfcake.reporting.reporters.Reporter;
 import org.perfcake.util.ObjectFactory;
 import org.perfcake.util.Utils;
@@ -368,6 +370,15 @@ public class SlaveFactory implements ScenarioFactory {
 								for (final org.perfcake.model.Scenario.Reporting.Reporter.Destination.Period p : d.getPeriod()) {
 									currentDestinationPeriodSet.add(new Period(PeriodType.valueOf(p.getType().toUpperCase()), Long.parseLong(p.getValue())));
 								}
+								
+								if (destClass.equals(DEFAULT_DESTINATION_PACKAGE + "." + PerfCakeConst.MASTER_REPORTING_DESTINATION)) {
+									if (currentDestination instanceof MasterDestination) {
+										((MasterDestination) currentDestination).ReporterClazz = reportClass;
+									} else {
+										log.warn("Destination was not a MasterDestination on slave");
+									}
+								}
+								
 								currentReporter.registerDestination(currentDestination, currentDestinationPeriodSet);
 							}
 						}
