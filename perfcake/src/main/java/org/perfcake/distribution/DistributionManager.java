@@ -85,6 +85,8 @@ public class DistributionManager {
 		// shutdown finished
 		log.info("Master shutdown complete");
 		log.info("=== Goodbye! ===");
+		
+		System.exit(0);
 	}
 
 	public void accept(Socket s) {
