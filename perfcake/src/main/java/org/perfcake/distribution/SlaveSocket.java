@@ -62,4 +62,9 @@ public class SlaveSocket {
 		return null;
 	}
 	
+	public OutputStream getOutputStream()
+	{
+		return oStream;
+	}
+	
 }
