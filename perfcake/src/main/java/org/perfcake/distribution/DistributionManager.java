@@ -4,6 +4,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 
 import org.perfcake.model.Scenario;
+import org.perfcake.reporting.MeasurementWrapper;
 
 public class DistributionManager {
 
@@ -29,6 +30,11 @@ public class DistributionManager {
 	
 	public void setScenarioModel(Scenario scenarioModel) {
 		this.scenarioModel = scenarioModel;		
+	}
+	
+	public void report(MeasurementWrapper wrapper)
+	{
+		//TODO 
 	}
 	
 }
