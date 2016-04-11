@@ -8,6 +8,8 @@
 
 package org.perfcake.model;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
@@ -43,9 +45,13 @@ import org.w3c.dom.Element;
     "any"
 })
 @XmlRootElement(name = "property")
-public class Property {
+public class Property implements Serializable {
 
-    @XmlAnyElement
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@XmlAnyElement
     protected Element any;
     @XmlAttribute(name = "name")
     protected String name;
