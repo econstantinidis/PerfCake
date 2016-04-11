@@ -15,7 +15,9 @@ import org.perfcake.PerfCakeException;
 import org.perfcake.model.Property;
 import org.perfcake.model.Scenario;
 import org.perfcake.model.Scenario.Reporting;
+import org.perfcake.reporting.Measurement;
 import org.perfcake.reporting.MeasurementWrapper;
+import org.perfcake.reporting.ReportingException;
 import org.perfcake.util.ObjectFactory;
 import org.w3c.dom.Element;
 
@@ -69,11 +71,19 @@ public class DistributionManager {
 			}
 
 			this.scenarioModel = scenarioModel;
-			
+
+			openAllReporterDestinations();
+
 			reportDestinationsSetup = true;
 		} else {
 			log.warn("Cannot set the distributed scenario model more than once");
 		}
+	}
+
+	private void openAllReporterDestinations() {
+		destinationMap.entrySet().stream()
+		.flatMap(e -> e.getValue().values().stream())
+		.forEach(d -> d.open());
 	}
 
 	private void setupReportDestinations(Scenario model) throws PerfCakeException {
@@ -139,7 +149,25 @@ public class DistributionManager {
 
 	public void report(MeasurementWrapper wrapper)
 	{
-		//TODO 
+		Measurement m = wrapper.measurement;
+
+		org.perfcake.reporting.destinations.Destination d =
+				destinationMap
+				.get(wrapper.reporterClazz)
+				.get(wrapper.destinationClazz);
+
+		if (d != null) {
+			try {
+				d.report(m);
+			} catch (ReportingException e) {
+				log.info("Reporting error on master", e);
+			}
+		} else {
+			log.warn("No destination found for recieved measurement [reporterClazz="
+					+ wrapper.reporterClazz
+					+ " destinationClazz="
+					+ wrapper.destinationClazz + "]");
+		}
 	}
 
 }
