@@ -8,6 +8,7 @@ import org.perfcake.PerfCakeConst;
 import org.perfcake.model.Scenario;
 import org.perfcake.model.Scenario.Reporting;
 import org.perfcake.model.Scenario.Reporting.Reporter;
+import org.perfcake.model.Scenario.Reporting.Reporter.Destination;
 
 public class DistributionManager {
 
@@ -44,7 +45,12 @@ public class DistributionManager {
 			if (reporters != null) {
 				for (Reporter r : reporters) {
 					if (r.isEnabled()) {
-						r.setClazz(PerfCakeConst.MASTER_REPORTING_DESTINATION);
+						List<Destination> destinations = r.getDestination();
+						if (destinations != null) {
+							for (Destination d : destinations) {
+								d.setClazz(PerfCakeConst.MASTER_REPORTING_DESTINATION);
+							}
+						}
 					}
 				}
 			}
