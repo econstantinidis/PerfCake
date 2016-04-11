@@ -2,6 +2,7 @@ package org.perfcake.distribution;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -47,7 +48,17 @@ public class SlaveSocket {
 	}
 	
 	public Scenario getScenarioModel() {
-		// FIXME actually get stuff
+		ObjectInputStream in;
+		try {
+			in = new ObjectInputStream(iStream);
+			return (Scenario) in.readObject();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
