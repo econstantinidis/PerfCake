@@ -299,7 +299,7 @@ public class Scenario {
     *
     * @return The current {@link SequenceManager}.
     */
-   DistributionManager getDistributionManager() {
+   public DistributionManager getDistributionManager() {
       return distributionManager;
    }
 }

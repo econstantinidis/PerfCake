@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <scenario xmlns="urn:perfcake:scenario:7.0">
-  <distribution port="12345" address="I'm hungry"/>
+  <distribution port="12345" address="127.0.0.1"/>
    <run type="time" value="10000"/>
    <generator class="DefaultMessageGenerator" 
               threads="${thread.count:10}"/>
