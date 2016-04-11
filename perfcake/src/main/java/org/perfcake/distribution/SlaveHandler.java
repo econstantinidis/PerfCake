@@ -23,6 +23,7 @@ public class SlaveHandler implements Runnable {
 	@Override
 	public void run() {
 		// FIXME
+		// FIXME call back to manager upon disconnect
 		
 		//Create communication method
 		ObjectInputStream in = null;
