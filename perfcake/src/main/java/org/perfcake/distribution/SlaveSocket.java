@@ -24,6 +24,8 @@ public class SlaveSocket {
 	private Socket sock;
 	private InputStream iStream;
 	private OutputStream oStream;
+	
+	private ObjectOutputStream objOutStream;
 
 	public static SlaveSocket getInstance() {
 		return instance;
@@ -47,6 +49,8 @@ public class SlaveSocket {
 
 		this.iStream = sock.getInputStream();
 		this.oStream = sock.getOutputStream();
+		
+		this.objOutStream = new ObjectOutputStream(this.oStream);
 	}
 
 	public Scenario getScenarioModel() {
@@ -66,11 +70,8 @@ public class SlaveSocket {
 
 	public void sendMeasurement(MeasurementWrapper wrapper) {
 		synchronized (oStream) {
-			ObjectOutputStream out;
-
 			try {
-				out = new ObjectOutputStream(oStream);
-				out.writeObject(wrapper);
+				objOutStream.writeObject(wrapper);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
