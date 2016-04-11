@@ -6,9 +6,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
-import java.util.Map.Entry;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -29,11 +29,10 @@ import org.perfcake.model.Header;
 import org.perfcake.model.Property;
 import org.perfcake.model.Scenario.Generator;
 import org.perfcake.model.Scenario.Messages;
+import org.perfcake.model.Scenario.Messages.Message.ValidatorRef;
 import org.perfcake.model.Scenario.Reporting;
 import org.perfcake.model.Scenario.Sender;
 import org.perfcake.model.Scenario.Validation;
-import org.perfcake.model.Scenario.Messages.Message.ValidatorRef;
-import org.perfcake.reporting.MeasurementWrapper;
 import org.perfcake.reporting.ReportManager;
 import org.perfcake.reporting.destinations.Destination;
 import org.perfcake.reporting.destinations.MasterDestination;
@@ -82,25 +81,25 @@ public class SlaveFactory implements ScenarioFactory {
 
 		return scenario;
 	}
-	
-	  private static Properties getPropertiesFromList(final List<Property> properties) throws PerfCakeException {
-	      final Properties props = new Properties();
 
-	      for (final Property p : properties) {
-	         final Element valueElement = p.getAny();
-	         final String valueString = p.getValue();
+	private static Properties getPropertiesFromList(final List<Property> properties) throws PerfCakeException {
+		final Properties props = new Properties();
 
-	         if (valueElement != null && valueString != null) {
-	            throw new PerfCakeException(String.format("A property tag can either have an attribute value (%s) or the body (%s) set, not both at the same time.", valueString, valueElement.toString()));
-	         } else if (valueElement == null && valueString == null) {
-	            throw new PerfCakeException("A property tag must either have an attribute value or the body set.");
-	         }
+		for (final Property p : properties) {
+			final Element valueElement = p.getAny();
+			final String valueString = p.getValue();
 
-	         props.put(p.getName(), valueString == null ? valueElement : valueString);
-	      }
+			if (valueElement != null && valueString != null) {
+				throw new PerfCakeException(String.format("A property tag can either have an attribute value (%s) or the body (%s) set, not both at the same time.", valueString, valueElement.toString()));
+			} else if (valueElement == null && valueString == null) {
+				throw new PerfCakeException("A property tag must either have an attribute value or the body set.");
+			}
 
-	      return props;
-	   }
+			props.put(p.getName(), valueString == null ? valueElement : valueString);
+		}
+
+		return props;
+	}
 
 	/**
 	 * Parses {@link org.perfcake.RunInfo} from the generator configuration.
@@ -365,20 +364,21 @@ public class SlaveFactory implements ScenarioFactory {
 								final Properties currentDestinationProperties = getPropertiesFromList(d.getProperty());
 								Utils.logProperties(log, Level.DEBUG, currentDestinationProperties, "  '- ");
 
-								final Destination currentDestination = (Destination) ObjectFactory.summonInstance(destClass, currentDestinationProperties);
+								// Always use master destination
+								final Destination currentDestination = (Destination) ObjectFactory.summonInstance(
+										DEFAULT_DESTINATION_PACKAGE + "." + PerfCakeConst.MASTER_REPORTING_DESTINATION,
+										currentDestinationProperties);
+
 								final Set<Period> currentDestinationPeriodSet = new HashSet<>();
 								for (final org.perfcake.model.Scenario.Reporting.Reporter.Destination.Period p : d.getPeriod()) {
 									currentDestinationPeriodSet.add(new Period(PeriodType.valueOf(p.getType().toUpperCase()), Long.parseLong(p.getValue())));
 								}
-								
-								if (destClass.equals(DEFAULT_DESTINATION_PACKAGE + "." + PerfCakeConst.MASTER_REPORTING_DESTINATION)) {
-									if (currentDestination instanceof MasterDestination) {
-										((MasterDestination) currentDestination).ReporterClazz = reportClass;
-									} else {
-										log.warn("Destination was not a MasterDestination on slave");
-									}
+
+								if (currentDestination instanceof MasterDestination) {
+									((MasterDestination) currentDestination).reporterClazz = reportClass;
+									((MasterDestination) currentDestination).destinationClazz = destClass;
 								}
-								
+
 								currentReporter.registerDestination(currentDestination, currentDestinationPeriodSet);
 							}
 						}

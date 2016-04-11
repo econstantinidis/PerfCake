@@ -2,7 +2,6 @@ package org.perfcake.reporting.destinations;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 
 import org.perfcake.distribution.SlaveSocket;
 import org.perfcake.reporting.Measurement;
@@ -12,7 +11,8 @@ import org.perfcake.reporting.ReportingException;
 public class MasterDestination implements Destination {
 
 	ObjectOutputStream objectStream;
-	public String ReporterClazz;
+	public String reporterClazz;
+	public String destinationClazz;
 	
 	@Override
 	public void open() {
@@ -36,7 +36,7 @@ public class MasterDestination implements Destination {
 	@Override
 	public void report(Measurement measurement) throws ReportingException {
 		
-		MeasurementWrapper wrapper = new MeasurementWrapper(measurement, ReporterClazz);//Wrap the measurement
+		MeasurementWrapper wrapper = new MeasurementWrapper(measurement, reporterClazz, destinationClazz);//Wrap the measurement
 		
 		try {
 			objectStream.writeObject(wrapper);

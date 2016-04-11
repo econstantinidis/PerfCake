@@ -4,11 +4,13 @@ public class MeasurementWrapper
 {
 	
 	public Measurement measurement;
-	public String ReporterClazz;
+	public String reporterClazz;
+	public String destinationClazz;
 	
-	public MeasurementWrapper(Measurement measurement, String ReporterClazz)
+	public MeasurementWrapper(Measurement measurement, String reporterClazz, String destinationClazz)
 	{
 		this.measurement = measurement;
-		this.ReporterClazz = ReporterClazz;
+		this.reporterClazz = reporterClazz;
+		this.destinationClazz = destinationClazz;
 	}
 }
