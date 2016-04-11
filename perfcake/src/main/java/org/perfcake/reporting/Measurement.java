@@ -21,6 +21,7 @@ package org.perfcake.reporting;
 
 import org.perfcake.util.Utils;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -34,9 +35,14 @@ import java.util.Map.Entry;
  * @author <a href="mailto:pavel.macik@gmail.com">Pavel Macík</a>
  * @author <a href="mailto:marvenec@gmail.com">Martin Večeřa</a>
  */
-public class Measurement {
+public class Measurement implements Serializable {
 
    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+/**
     * The default result name.
     */
    public static final String DEFAULT_RESULT = "Result";
