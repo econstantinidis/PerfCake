@@ -221,6 +221,8 @@ public final class PerfCakeConst {
     */
    public static final int ERR_SLAVE_SOCKET = 7;
 
+	public static final String MASTER_REPORTING_DESTINATION = "MasterDestination";
+
    /**
     * There should be no instance of a utility class.
     */

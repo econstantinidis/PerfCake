@@ -2,8 +2,12 @@ package org.perfcake.distribution;
 
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.List;
 
+import org.perfcake.PerfCakeConst;
 import org.perfcake.model.Scenario;
+import org.perfcake.model.Scenario.Reporting;
+import org.perfcake.model.Scenario.Reporting.Reporter;
 
 public class DistributionManager {
 
@@ -28,7 +32,25 @@ public class DistributionManager {
 	}
 	
 	public void setScenarioModel(Scenario scenarioModel) {
-		this.scenarioModel = scenarioModel;		
+		this.scenarioModel = transformToSlaveScenarioModel(scenarioModel);
+	}
+
+	private Scenario transformToSlaveScenarioModel(Scenario model) {
+		Reporting reporting = model.getReporting();
+		
+		if (reporting != null) {
+			List<Reporter> reporters = reporting.getReporter();
+			
+			if (reporters != null) {
+				for (Reporter r : reporters) {
+					if (r.isEnabled()) {
+						r.setClazz(PerfCakeConst.MASTER_REPORTING_DESTINATION);
+					}
+				}
+			}
+		}
+		
+		return model;
 	}
 	
 }
