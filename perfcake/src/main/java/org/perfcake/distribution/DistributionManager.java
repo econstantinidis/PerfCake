@@ -20,7 +20,6 @@ import org.perfcake.reporting.Measurement;
 import org.perfcake.reporting.MeasurementWrapper;
 import org.perfcake.reporting.ReportingException;
 import org.perfcake.util.ObjectFactory;
-import org.springframework.core.task.support.ConcurrentExecutorAdapter;
 import org.w3c.dom.Element;
 
 public class DistributionManager {
