@@ -39,7 +39,7 @@ public final class PerfCakeConst {
    /**
     * Help on PerfCake command line usage.
     */
-   public static final String USAGE_HELP = "ScenarioExecution -s <SCENARIO> [-sd <SCENARIOS_DIR>] [-md <MESSAGES_DIR>] [-D<property=value>]*";
+   public static final String USAGE_HELP = "ScenarioExecution [-s <SCENARIO>] [-m <MASTER_HOST:MASTER_PORT> [-sd <SCENARIOS_DIR>] [-md <MESSAGES_DIR>] [-D<property=value>]*";
 
    /**
     * Name of the message header that stores message number.
