@@ -19,13 +19,17 @@
  */
 package org.perfcake.reporting;
 
+import java.io.Serializable;
+
 /**
  * A number with an unit.
  *
  * @author <a href="mailto:marvenec@gmail.com">Martin Večeřa</a>
  */
-public class Quantity<N extends Number> {
-   private final N number;
+public class Quantity<N extends Number> implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	private final N number;
    private final String unit;
 
    /**

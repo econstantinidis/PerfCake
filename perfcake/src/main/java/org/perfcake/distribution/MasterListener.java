@@ -24,7 +24,7 @@ public class MasterListener implements Runnable {
 
 	@Override
 	public void run() {
-		while (true) {
+		while (manager.isRunning()) {
 			Socket slave = null;
 			try {
 				slave = serverSock.accept();

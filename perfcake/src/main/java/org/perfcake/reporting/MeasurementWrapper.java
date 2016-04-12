@@ -1,14 +1,20 @@
 package org.perfcake.reporting;
 
-public class MeasurementWrapper
+import java.io.Serializable;
+
+public class MeasurementWrapper implements Serializable
 {
 	
-	public Measurement measurement;
-	public String ReporterClazz;
+	private static final long serialVersionUID = 1L;
 	
-	public MeasurementWrapper(Measurement measurement, String ReporterClazz)
+	public Measurement measurement;
+	public String reporterClazz;
+	public String destinationClazz;
+	
+	public MeasurementWrapper(Measurement measurement, String reporterClazz, String destinationClazz)
 	{
 		this.measurement = measurement;
-		this.ReporterClazz = ReporterClazz;
+		this.reporterClazz = reporterClazz;
+		this.destinationClazz = destinationClazz;
 	}
 }
