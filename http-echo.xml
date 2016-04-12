@@ -3,7 +3,7 @@
   <distribution port="12345" address="192.168.2.148"/>
    <run type="time" value="100000"/>
    <generator class="DefaultMessageGenerator" 
-              threads="${thread.count:20}"/>
+              threads="${thread.count:16}"/>
    <sender class="HttpSender">
       <target>http://192.168.1.109/mutillidae/</target>
       <property name="method" value="GET"/>
@@ -11,7 +11,7 @@
    <reporting>
       <reporter class="ResponseTimeStatsReporter">
          <destination class="ConsoleDestination">
-            <period type="time" value="1000"/>
+            <period type="time" value="3000"/>
          </destination>
       </reporter>
    </reporting>
