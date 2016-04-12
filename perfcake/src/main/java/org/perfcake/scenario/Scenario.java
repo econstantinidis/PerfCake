@@ -285,19 +285,19 @@ public class Scenario {
    }
    
    /**
-    * Sets the current {@link SequenceManager}.
+    * Sets the current {@link DistributionManager}.
     *
-    * @param sequenceManager
-    *       The {@link SequenceManager} to be set.
+    * @param distributionManager
+    *       The {@link DistributionManager} to be set.
     */
    public void setDistributionManager(final DistributionManager distributionManager) {
       this.distributionManager = distributionManager;
    }
 
    /**
-    * Gets the current {@link SequenceManager}.
+    * Gets the current {@link DistributionManager}.
     *
-    * @return The current {@link SequenceManager}.
+    * @return The current {@link DistributionManager}.
     */
    public DistributionManager getDistributionManager() {
       return distributionManager;
